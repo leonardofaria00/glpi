@@ -22,7 +22,5 @@ RUN chmod +x /opt/app-start.sh
 # Expondo a porta web
 EXPOSE 80
 
-# Iniciando servidor
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-
+# Iniciando projeto
 ENTRYPOINT ["/opt/app-start.sh"]

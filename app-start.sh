@@ -34,5 +34,5 @@ echo "*/2 * * * * www-data /usr/bin/php /var/www/html/front/cron.php &>/dev/null
 # Start cron service
 service cron start
 
-# Lancement du service apache au premier plan
+# Serviço Apache em primeiro plano
 exec /usr/sbin/httpd -D FOREGROUND
