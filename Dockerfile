@@ -12,7 +12,7 @@
 ################################################################################
 
 # TODO
-FROM leonardofaria00/httpd-base_webapp:latest
+FROM leonardofaria00/centos7-httpd-php73:latest
 
 # Instalando Pacotes de Dependências especificas para o GLPI
 RUN yum -y --setopt=tsflags=nodocs update
