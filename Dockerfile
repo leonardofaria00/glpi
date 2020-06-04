@@ -21,9 +21,9 @@ RUN yum -y --setopt=tsflags=nodocs install \
     php-ldap \
     php-xmlrpc \
     php-imap \
-    # php-cas \
-    # php-curl \
-    # php-apcu-bc \
+    php-pear-CAS \
+    php-pear-Net-Curl \
+    php73-php-pecl-apcu-bc \
     php-devel \
     unixodbc-devel
 
