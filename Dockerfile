@@ -22,22 +22,19 @@ RUN yum -y --setopt=tsflags=nodocs install \
     php-xmlrpc \
     php-imap \
     php-pear-CAS \
-    php-pear-Net-Curl \
-    php73-php-pecl-apcu-bc \
     php-pecl-apcu \
     php-opcache \
     php-devel \
     unixodbc-devel
 
-# RUN pecl install pdo_sqlsrv sqlsrv
-
 # Copia e executa o script de instalação do Projeto
 COPY app-start.sh /opt/
 RUN chmod +x /opt/app-start.sh
 
-COPY glpi/ /var/www/html
-COPY config/config_db.php /var/www/html/config
+COPY app/ /var/www/html
+# COPY config/config_db.php /var/www/html/config
 
+# Copiando variáveis de ambiente para o container
 COPY config/environment /etc/
 COPY config/yum.conf /etc/
 
