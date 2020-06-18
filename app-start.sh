@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Definindo Document root
 FOLDER_WEB=/var/www/html/
 

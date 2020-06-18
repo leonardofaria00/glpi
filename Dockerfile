@@ -11,7 +11,6 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 ################################################################################
 
-# TODO
 FROM leonardofaria00/centos7-httpd-php73:latest
 
 # Instalando Pacotes de Dependências especificas para o GLPI
@@ -27,16 +26,17 @@ RUN yum -y --setopt=tsflags=nodocs install \
     php-devel \
     unixodbc-devel
 
-# Copia e executa o script de instalação do Projeto
-COPY app-start.sh /opt/
-RUN chmod +x /opt/app-start.sh
-
-COPY app/ /var/www/html
+# Copiando projeto para o container
+# COPY app/ /var/www/html
 # COPY config/config_db.php /var/www/html/config
 
 # Copiando variáveis de ambiente para o container
-COPY config/environment /etc/
-COPY config/yum.conf /etc/
+# COPY config/environment /etc/
+# COPY config/yum.conf /etc/
+
+# Copia e executa o script de instalação do Projeto
+COPY app-start.sh /opt/
+RUN chmod +x /opt/app-start.sh
 
 # Expondo a porta web
 EXPOSE 80
