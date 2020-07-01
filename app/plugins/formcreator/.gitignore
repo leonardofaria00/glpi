@@ -1,0 +1,19 @@
+dist/
+vendor/
+.gh_token
+*.min.*
+.idea
+.settings
+.buildpath
+.project
+/.gtm/
+
+# Ignore content of data expect for the index
+data/
+!data/index.php
+
+# Ignore tests logs
+tests/logs/
+
+# Ignore code coverage
+development/

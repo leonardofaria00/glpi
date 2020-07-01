@@ -1,0 +1,90 @@
+language: php
+
+sudo: required
+
+services:
+  - mysql
+
+env:
+  global:
+    - GLPI_SOURCE="https://github.com/glpi-project/glpi"
+    - CS=7.4
+    - DB_HOST=127.0.0.1
+    - MYSQL_ROOT_USER=root
+    - DB_USER=glpi
+    - DB_PASSWD=glpi
+    - DB_NAME=glpitest
+    - OLD_DB_NAME=glpiupgradetest
+    - PLUGINNAME=formcreator
+    - AFTER_SUCCESS_BRANCH=9.4/bugfixes
+  matrix:
+    - GLPI_BRANCH=9.4/bugfixes
+    - GLPI_BRANCH=9.5/bugfixes
+    # - GLPI_BRANCH=master
+
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
+  - nightly
+
+matrix:
+  exclude:
+    - php: 5.6
+      env: GLPI_BRANCH=9.5/bugfixes
+    - php: 7.0
+      env: GLPI_BRANCH=9.5/bugfixes
+    - php: 7.1
+      env: GLPI_BRANCH=9.5/bugfixes
+  allow_failures:
+    - php: nightly
+#    - env: GLPI_BRANCH=9.5/bugfixes
+#    - env: GLPI_BRANCH=master
+
+before_script:
+  - |
+   if [ "$TRAVIS_SECURE_ENV_VARS" = "true" ]; then
+      mkdir ~/.composer -p
+      touch ~/.composer/composer.json
+      composer config -g github-oauth.github.com $GH_TOKEN
+   fi
+
+  - # set -x
+  - . ./tests/script-functions.sh
+  - . ./tests/script-specific-functions.sh
+  - init_databases
+  - install_glpi && install_plugin
+
+script:
+  - COVERAGE="-ncc"
+  - if [ "${TRAVIS_PHP_VERSION:0:3}" = "$CS" ] && [ "$GLPI_BRANCH" = "$AFTER_SUCCESS_BRANCH" ]; then COVERAGE="--nccfc CommonTreeDropdown CommonDropdown CommonDBTM CommonGLPI CommonDBConnexity CommonDBRelation"; fi
+
+  - # install GLPI with an old schema of the plugin and upgrade it
+  - export TEST_GLPI_CONFIG_DIR="tests/config-$OLD_DB_NAME"
+  - init_glpi $OLD_DB_NAME $DB_USER $DB_PASSWD && init_plugin
+  - # upgrade test
+  - echo status of plugins
+  - mysql -h$DB_HOST -u$DB_USER -p$DB_PASSWD $OLD_DB_NAME -e "select name,directory,version,state from glpi_plugins WHERE directory IN ('formcreator')"
+  - plugin_test_upgrade
+
+  - # install GLPI with a fresh install of the plugin
+  - export TEST_GLPI_CONFIG_DIR="tests/config-$DB_NAME"
+  - init_glpi $DB_NAME $DB_USER $DB_PASSWD && init_plugin
+  - # fresh install test
+  - plugin_test_install
+  - plugin_test
+  - plugin_test_uninstall
+  - if [ ${TRAVIS_PHP_VERSION:0:3} == "$CS" ] && [ "$GLPI_BRANCH" = "$AFTER_SUCCESS_BRANCH" ]; then plugin_test_cs; fi
+
+after_success:
+  - if [ ${TRAVIS_PHP_VERSION:0:3} == "$CS" ] && [ "$GLPI_BRANCH" = "$AFTER_SUCCESS_BRANCH" ]; then vendor/bin/parallel-lint --exclude vendor .; fi
+  # let's update the documentation and locales
+  - if [ ${TRAVIS_PHP_VERSION:0:3} == "$CS" ] && [ "$GLPI_BRANCH" = "$AFTER_SUCCESS_BRANCH" ]; then tests/after_success.sh; fi
+  - if [ ${TRAVIS_PHP_VERSION:0:3} == "$APIDOCS_PHP" ] && [ "$GLPI_BRANCH" = "$AFTER_SUCCESS_BRANCH" ]; then tests/apidocs.sh; fi
+
+cache:
+  directories:
+    - $HOME/.composer/cache
