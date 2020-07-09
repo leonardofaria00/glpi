@@ -32,8 +32,8 @@ COPY app/ /var/www/html
 # COPY config/glpi.key /var/www/html/config
 
 # Copiando variáveis de ambiente para o container
-COPY config/environment /etc/
-COPY config/yum.conf /etc/
+# COPY config/environment /etc/
+# COPY config/yum.conf /etc/
 
 # Copia e executa o script de instalação do Projeto
 COPY app-start.sh /opt/

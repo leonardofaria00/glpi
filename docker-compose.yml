@@ -1,0 +1,39 @@
+#########################################################################
+# VERSION 0.1.8
+# AUTHOR:         Leonardo Santos <leonardofaria00@gmail.com>
+# DESCRIPTION:    Image CentOS with PHP 7.3 and httpd 2.4
+# to build and To run: docker-compose -f "docker-compose.yml" up -d --build
+#
+# Dockerfile de construção do container WebApp utilizado pelo MD
+#
+# Container preparado e configurado para uso em desenvolvimento e testes
+#########################################################################
+
+version: "3.7"
+
+volumes:
+  data:
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - demo-network
+
+  db:
+    image: mysql
+    container_name: localhost #Host name
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=glpi #Database name
+      - MYSQL_ROOT_PASSWORD= #Password for database. User are: root
+    networks:
+      - demo-network
+
+networks:
+  demo-network:
+    driver: bridge
