@@ -11,29 +11,27 @@
 
 version: "3.7"
 
-volumes:
-  data:
 services:
+  mysql:
+    image: mysql:5.7.23
+    container_name: mysql
+    hostname: mysql
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    env_file:
+      - ./mysql.env
+    restart: always
+
   app:
-    build:
+    build: 
       context: .
       dockerfile: ./Dockerfile
+    container_name : glpi
+    hostname: glpi
     ports:
       - "80:80"
-    networks:
-      - demo-network
-
-  db:
-    image: mysql
-    container_name: localhost #Host name
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_DATABASE=glpi #Database name
-      - MYSQL_ROOT_PASSWORD= #Password for database. User are: root
-    networks:
-      - demo-network
-
-networks:
-  demo-network:
-    driver: bridge
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./app/:/var/www/html/
+    restart: always
