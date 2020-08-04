@@ -13,6 +13,10 @@
 
 FROM leonardofaria00/centos7-httpd-php73:latest
 
+# Copiando variáveis de ambiente para o container
+# COPY config/environment /etc/
+# COPY config/yum.conf /etc/
+
 # Instalando Pacotes de Dependências especificas para o GLPI
 RUN yum -y --setopt=tsflags=nodocs update
 
@@ -28,10 +32,6 @@ RUN yum -y --setopt=tsflags=nodocs install \
 
 # Copiando projeto para o container
 COPY app/ /var/www/html
-
-# Copiando variáveis de ambiente para o container
-# COPY config/environment /etc/
-# COPY config/yum.conf /etc/
 
 # Copia e executa o script de instalação do Projeto
 COPY app-start.sh /opt/
