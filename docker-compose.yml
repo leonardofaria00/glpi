@@ -19,7 +19,7 @@ services:
     volumes:
       - /var/lib/mysql:/var/lib/mysql
     env_file:
-      - ./mysql.env
+      - ./config/mysql.env
     restart: always
 
   app:
