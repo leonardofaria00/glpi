@@ -1,1 +1,3 @@
-app/files/*
+/app/files
+
+/app/plugins/actualtime
