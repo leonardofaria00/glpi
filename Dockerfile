@@ -1,5 +1,5 @@
 ################################################################################
-# VERSION v0.0.4
+# VERSION v0.0.5
 # AUTHOR:         Leonardo Santos <leonardofaria00@gmail.com>
 # DESCRIPTION:    Image CentOS with PHP 7.3 and httpd 2.4
 #
@@ -34,6 +34,9 @@ RUN yum -y --setopt=tsflags=nodocs install \
 
 # Copiando projeto para o container
 COPY app/ /var/www/html
+
+# Copiando arquivos de configuração do PHP
+COPY config/php.ini /etc/php.d/glpi.ini
 
 # Copia e executa o script de instalação do Projeto
 COPY app-start.sh /opt/
