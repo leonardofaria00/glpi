@@ -1,6 +1,6 @@
 # TODO
 
-https://github.com/glpi-project/glpi/tree/master
+https://github.com/glpi-project/glpi/
 
 https://github.com/pluginsGLPI/ocsinventoryng
 
