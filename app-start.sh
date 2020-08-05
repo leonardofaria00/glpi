@@ -9,5 +9,9 @@ chown -R apache:apache ${FOLDER_WEB}
 # Removendo seção
 rm -rf app/files/_sessions/*
 
+php bin/console dependencies install
+
+composer install
+
 # Executando aplicação
 exec /usr/sbin/httpd -D FOREGROUND

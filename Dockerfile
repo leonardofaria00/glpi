@@ -29,7 +29,8 @@ RUN yum -y --setopt=tsflags=nodocs install \
     php-opcache \
     php-devel \
     unixodbc-devel \
-    php-sodium
+    php-sodium \
+    npm
 
 # Copiando projeto para o container
 COPY app/ /var/www/html
