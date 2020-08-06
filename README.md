@@ -16,6 +16,8 @@ $ php bin/console dependencies install
 
 ## clone it's projects
 
-https://github.com/glpi-project/glpi/
+https://glpi-project.org/downloads/
 
-https://github.com/pluginsGLPI/ocsinventoryng
+git clone https://github.com/pluginsGLPI/ocsinventoryng
+
+git clone https://github.com/fusioninventory/fusioninventory-agent
