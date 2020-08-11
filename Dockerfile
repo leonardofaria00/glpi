@@ -24,16 +24,17 @@ RUN yum -y --setopt=tsflags=nodocs install \
     php-ldap \
     php-xmlrpc \
     php-imap \
-    php-pear-CAS \
+    php-pear-CAS \                                                                                                                                                                                                                                                  
     php-pecl-apcu \
-    php-opcache \
+    php-opcache \                                                                                                                                                                                                                                                                                                                                                                                                                           
     php-devel \
     unixodbc-devel \
     php-sodium \
-    npm
+    npm                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 
 # Copiando projeto para o container
 COPY app/ /var/www/html
+COPY config/config_db.php /var/www/html/config
 COPY plugins/ /var/www/html/plugins
 
 # Copiando arquivos de configuração do PHP
