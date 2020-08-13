@@ -30,7 +30,11 @@ RUN yum -y --setopt=tsflags=nodocs install \
     php-devel \
     unixodbc-devel \
     php-sodium \
-    npm                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    npm \
+    crontabs \
+    && rm -rf /tmp/* /var/cache/yum/* /var/lib/apt/lists/* /run/httpd/* \
+    && yum clean all
+
 
 # Copiando projeto para o container
 COPY app/ /var/www/html

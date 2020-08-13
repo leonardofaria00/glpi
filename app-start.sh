@@ -15,5 +15,9 @@ php bin/console dependencies install
 
 composer install
 
+# Adicionando tarefas no CRONTAB do host
+echo "*/2 * * * * apache /usr/bin/php /var/www/html/front/cron.php &>/dev/null" >> /etc/cron.d/glpi
+service crontabs start
+
 # Executando aplicação
 exec /usr/sbin/httpd -D FOREGROUND
