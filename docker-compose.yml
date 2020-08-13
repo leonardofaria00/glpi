@@ -1,5 +1,5 @@
 #########################################################################
-# VERSION 0.1.8
+# VERSION 0.1.9
 # AUTHOR:         Leonardo Santos <leonardofaria00@gmail.com>
 # DESCRIPTION:    Image CentOS with PHP 7.3 and httpd 2.4
 # to build and To run: docker-compose -f "docker-compose.yml" up -d --build
@@ -20,10 +20,11 @@ services:
       - /var/lib/mysql:/var/lib/mysql
     env_file:
       - ./config/mysql.env
+      - ./config/mysql_ocs.env
     restart: always
 
   app:
-    build: 
+    build:
       context: .
       dockerfile: ./Dockerfile
     container_name: glpi
@@ -33,5 +34,4 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      # - ./app/:/var/www/html/
     restart: always
