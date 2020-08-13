@@ -34,7 +34,6 @@ RUN yum -y --setopt=tsflags=nodocs install \
 
 # Copiando projeto para o container
 COPY app/ /var/www/html
-COPY config/config_db.php /var/www/html/config
 COPY plugins/ /var/www/html/plugins
 
 # Copiando arquivos de configuração do PHP
