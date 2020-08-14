@@ -1,5 +1,5 @@
 ################################################################################
-# VERSION v0.0.5
+# VERSION v0.0.6
 # AUTHOR:         Leonardo Santos <leonardofaria00@gmail.com>
 # DESCRIPTION:    Image CentOS with PHP 7.3 and httpd 2.4
 #
@@ -30,11 +30,9 @@ RUN yum -y --setopt=tsflags=nodocs install \
     php-devel \
     unixodbc-devel \
     php-sodium \
-    npm \
     crontabs \
     && rm -rf /tmp/* /var/cache/yum/* /var/lib/apt/lists/* /run/httpd/* \
     && yum clean all
-
 
 # Copiando projeto para o container
 COPY app/ /var/www/html

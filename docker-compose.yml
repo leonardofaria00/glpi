@@ -20,7 +20,6 @@ services:
       - /var/lib/mysql:/var/lib/mysql
     env_file:
       - ./config/mysql.env
-      - ./config/mysql_ocs.env
     restart: always
 
   app:
@@ -34,4 +33,5 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+      - ./app/config/:/var/www/html/config/:rw
     restart: always

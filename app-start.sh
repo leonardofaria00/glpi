@@ -11,12 +11,8 @@ chmod -R ug+rw ${FOLDER_WEB}/files
 # Removendo seção
 rm -rf app/files/_sessions/*
 
-php bin/console dependencies install
-
-composer install
-
 # Adicionando tarefas no CRONTAB do host
-echo "*/2 * * * * apache /usr/bin/php /var/www/html/front/cron.php &>/dev/null" >> /etc/cron.d/glpi
+echo "*/2 * * * * apache /usr/bin/php /var/www/html/front/cron.php &>/dev/null" >>/etc/cron.d/glpi
 service crontabs start
 
 # Executando aplicação
