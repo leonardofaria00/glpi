@@ -9,7 +9,7 @@
 # Container preparado e configurado para uso em desenvolvimento e testes
 #########################################################################
 
-version: "3.7"
+version: '3.7'
 
 services:
   mysql:
@@ -29,9 +29,10 @@ services:
     container_name: glpi
     hostname: glpi
     ports:
-      - "80:80"
+      - '80:80'
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - ./app/config/:/var/www/html/config/:rw
+      - ./plugins/:/var/www/html/plugins/:rw
     restart: always
