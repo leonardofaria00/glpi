@@ -17,7 +17,7 @@ services:
     container_name: mysql
     hostname: mysql
     volumes:
-      - /var/lib/mysql:/var/lib/mysql
+      - /var/lib/mysql-docker:/var/lib/mysql
     env_file:
       - ./config/mysql.env
     restart: always
