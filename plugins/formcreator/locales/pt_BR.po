@@ -49,7 +49,7 @@ msgstr "Formulários aguardando validação"
 msgid "Form"
 msgid_plural "Forms"
 msgstr[0] "Formulário"
-msgstr[1] "Criar Chamados"
+msgstr[1] "Criar chamado"
 
 #: ajax/commontree.php:25
 msgid "Subtree root"
